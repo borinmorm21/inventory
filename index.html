@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/2897/2897785.png" type="image/x-icon">
+</head>
+<body>
+    <div class="menu">
+        <h1>Inventory</h1>
+        <input type="search" name="search" id="search" placeholder="search">
+        <div class="button">
+            <a href="#"><button>Source Code</button></a>
+            <button onclick="showAlert()">+Add</button>
+        </div>
+    </div>
+
+    <section id="container"></section>
+
+    <div id="alert"></div>
+
+    <section class="footer">
+        <p>Inspired By Professor SAM ART</p>
+    </section>
+
+    <script src="data.js"></script>
+    <script>
+        let pro = document.getElementById('container')
+        for(let i = 0; i < data.length; i++) {
+            pro.innerHTML += `
+            <div class="card" id="card" onclick="showAlert()">
+                <img src="${data[i][3]}" alt="image" width="150px">
+                <div class="content">
+                    <h4 id="title">${data[i][7]}</h4>
+                    <h5>${data[i][0]}</h5>
+                    <h5 id="code">${data[i][6]}</h5>
+                </div>
+            </div> `
+        }
+
+        function showAlert() {
+            alert("Hello World")
+        }
+
+
+        // searching
+        let products = data;
+        const container = document.getElementById('container');
+        const searchInput = document.getElementById('search');
+
+        // Filter products based on search input value
+        searchInput.addEventListener('input', (event) => {
+        const searchText = event.target.value.toLowerCase();
+        const filteredProducts = products.filter((product) => {
+            const title = product[7].toLowerCase();
+            return title.includes(searchText);
+        });
+        renderProducts(filteredProducts);
+        });
+
+        function renderProducts(products) {
+        container.innerHTML = '';
+        for (let i = 0; i < products.length; i++) {
+            container.innerHTML += `
+            <div class="card" id="card">
+                <img src="${products[i][3]}" alt="image" width="150px">
+                <div class="content">
+                <h4 id="title">${products[i][7]}</h4>
+                <h5>${products[i][0]}</h5>
+                <h5 id="code">${products[i][6]}</h5>
+                </div>
+            </div>
+            `;
+        }
+        }
+
+    </script>
+</body>
+</html>
